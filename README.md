@@ -1,1 +1,1 @@
-# CLAIDWearOSTemplateApp
+# GalaxyWatchCLAID
