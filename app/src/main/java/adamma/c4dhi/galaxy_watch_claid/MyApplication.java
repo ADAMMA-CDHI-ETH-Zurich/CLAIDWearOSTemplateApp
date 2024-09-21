@@ -14,7 +14,7 @@ public class MyApplication extends Application
     public void onCreate()
     {
         super.onCreate();
-        CLAID.startInPersistentService(getApplicationContext(),
+        CLAID.startInBackground(getApplicationContext(),
                 "assets://claid_config.json",
                 "smartwatch",
                 "device",
