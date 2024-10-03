@@ -8,11 +8,66 @@ pluginManagement {
         }
     }
 }
+
+def is_claid_developer = false  // Initialize the flag
+def homeDir = System.getProperty("user.home")
+def credentialsFile = file("${homeDir}/.claid/developer_settings.txt")
+
+def properties = new Properties()
+
+def developer_repo = ""
+def developer_name = ""
+def developer_password = ""
+
+if (!credentialsFile.exists()) {
+    credentialsFile = file("developer_settings.txt")
+}
+
+if (credentialsFile.exists()) {
+    credentialsFile.withInputStream { stream ->
+        properties.load(stream)
+    }
+
+    developer_name = properties.getProperty("developer_name")
+    developer_password = properties.getProperty("developer_password")
+    developer_repo = properties.getProperty("repo_url")
+
+    if(developer_name != null && developer_repo != null && developer_name != "" && developer_repo != "")
+    {
+        if(!developer_repo.startsWith("http"))
+        {
+            println("Invalid developer repo! \"" + developer_repo + "\" is not a valid repository.")
+        }
+        else
+        {
+            is_claid_developer = true  // Set to true if credentials file is found
+            println("You are a CLAID developer!")
+        }
+    }
+
+} else {
+    is_claid_developer = false  // Keep false if file is not found
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
+
+
+        // Conditionally add the Maven repository based on the presence of the credentials file
+        if (is_claid_developer) {
+            maven {
+                name = "CLAID SDK Repo"  // Give the repository a name
+                url = developer_repo
+                allowInsecureProtocol = true
+                credentials {
+                    username = developer_name
+                    password = developer_password
+                }
+            }
+        }
     }
 }
 
