@@ -16,7 +16,7 @@ public class MyApplication extends Application
         super.onCreate();
         CLAID.startInBackground(getApplicationContext(),
                 "assets://claid_config.json",
-                "smartwatch",
+                "Smartwatch",
                 "device",
                 "user",
                 CLAIDSpecialPermissionsConfig.regularConfig(),
