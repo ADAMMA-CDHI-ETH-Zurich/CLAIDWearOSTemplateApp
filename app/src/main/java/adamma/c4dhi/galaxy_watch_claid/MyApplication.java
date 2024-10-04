@@ -19,7 +19,7 @@ public class MyApplication extends Application
                 "smartwatch",
                 "device",
                 "user",
-                CLAIDSpecialPermissionsConfig.almightyCLAID(),
+                CLAIDSpecialPermissionsConfig.regularConfig(),
                 CLAIDPersistanceConfig.maximumPersistance());
 
     }
